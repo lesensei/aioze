@@ -1,6 +1,7 @@
 import json
 import logging
 from datetime import datetime, timedelta
+from typing import Any, List
 from urllib.parse import urljoin
 
 from aioze.access import Access
@@ -23,3 +24,15 @@ class UserInfo:
             _LOGGER.error("Error fetching Oze user information: '%s'", res.reason)
             return
         return await res.json()
+
+    @staticmethod
+    def get_pupils_from_userinfo(json: dict[str, Any]) -> List[dict[str, str]]:
+        pupils=[]
+        for pupil in json['relations']:
+            pupils.append({
+                "uid": pupil['user']['id'],
+                "last_name": pupil['user']['nom'],
+                "first_name": pupil['user']['prenom'],
+                "etab": json['currentUai']
+            })
+        return pupils

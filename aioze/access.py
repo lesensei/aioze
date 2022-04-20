@@ -11,7 +11,7 @@ _LOGGER = logging.getLogger(__package__)
 class Access:
     """Connection control."""
 
-    def __init__(self, session: aiohttp.ClientSession, base_url, api_url, username, password, timeout, names=None):
+    def __init__(self, session: aiohttp.ClientSession, base_url, api_url, username, password, timeout):
         """Init class."""
         self.session = session
         self.base_url = base_url
@@ -20,8 +20,6 @@ class Access:
         self.password = password
         self.timeout = timeout
         self.profil = None
-        self.pupils = []
-        self.names = names
 
     async def is_authenticated(self) -> bool:
         """Check if session is authenticated to the OzE instance"""
@@ -33,20 +31,6 @@ class Access:
         info: dict = await res.json()
         self.profil = info['currentProfil']['codeProfil']
         _LOGGER.debug("JSON result: '%s'", info)
-        for relation in list(info["relations"]):
-            if ((self.names and relation["user"]["prenom"] not in self.names)
-                    or relation["user"]["prenom"] in [p['name'] for p in self.pupils]):
-                _LOGGER.debug("Ignoring calendar for '%s'", relation["user"]["prenom"])
-                continue
-
-            self.pupils.append(
-                {
-                    "uid": relation["user"]["id"],
-                    "name": relation["user"]["prenom"],
-                    "etab": relation["user"]["uai"],
-                }
-            )
-            _LOGGER.info("Pupils: %s", self.pupils)
         return True
 
     async def authenticate(self) -> bool:

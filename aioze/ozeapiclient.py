@@ -16,7 +16,7 @@ class OzeApiClient:
     """Deals with Oze API calls"""
 
     def __init__(
-        self, url: str, username: str, password: str, session: aiohttp.ClientSession, names: List[str] = None
+        self, url: str, username: str, password: str, session: aiohttp.ClientSession
     ):
         """Sample API Client."""
         self._access = None
@@ -24,8 +24,6 @@ class OzeApiClient:
         self._username = username
         self._password = password
         self._session = session
-        self._profil = None
-        self._names = names
 
     def _load_modules(self):
         """Instantiate modules."""
@@ -43,7 +41,6 @@ class OzeApiClient:
             username=self._username,
             password=self._password,
             timeout=TIMEOUT,
-            names=self._names,
         )
 
         if self._access:

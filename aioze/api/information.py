@@ -10,19 +10,18 @@ class Information:
     def __init__(self, access: Access):
         self._access = access
 
-    async def get_informations(self, pupil=None):
+    async def get_informations(self, pupil):
         """Get information notices"""
         if not await self._access.is_authenticated():
             await self._access.authenticate()
         info_url = urljoin(self._access.api_url, "/v1/information/lecteur")
-        _pupil = pupil or self._access.pupils[0]
         params = {
             "start": 0,
             "limit": 10,
             "activeState": 0,
             "periodTypeSelected": "CURRENTYEAR",
             "allInformations": "false",
-            "ctx_etab": _pupil['etab'],
+            "ctx_etab": pupil['etab'],
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", info_url, params=params)
