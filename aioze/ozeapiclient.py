@@ -1,7 +1,6 @@
 import asyncio
 import inspect
 import socket
-from typing import List
 from urllib.parse import urlparse, urlunparse
 import aiohttp
 from aioze.access import Access

@@ -1,6 +1,4 @@
-import json
 import logging
-from datetime import datetime, timedelta
 from typing import Any, List
 from urllib.parse import urljoin
 
@@ -26,9 +24,9 @@ class UserInfo:
         return await res.json()
 
     @staticmethod
-    def get_pupils_from_userinfo(json: dict[str, Any]) -> List[dict[str, str]]:
+    def get_pupils_from_userinfo(user_info: dict[str, Any]) -> List[dict[str, str]]:
         pupils=[]
-        for pupil in json['relations']:
+        for pupil in user_info['relations']:
             pupils.append({
                 "uid": pupil['user']['id'],
                 "last_name": pupil['user']['nom'],
