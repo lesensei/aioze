@@ -25,12 +25,12 @@ class UserInfo:
 
     @staticmethod
     def get_pupils_from_userinfo(user_info: dict[str, Any]) -> List[dict[str, str]]:
-        pupils=[]
+        pupils = []
         for pupil in user_info['relations']:
             pupils.append({
                 "uid": pupil['user']['id'],
                 "last_name": pupil['user']['nom'],
                 "first_name": pupil['user']['prenom'],
-                "etab": json['currentUai']
+                "etab": user_info['currentUai']
             })
         return pupils
