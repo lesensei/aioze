@@ -10,14 +10,15 @@ class Notification:
     def __init__(self, access: Access):
         self._access = access
 
-    async def get_notifications(self, pupil):
+    async def get_notifications(self, pupil = None):
+        # pylint: disable=unused-argument
         """Get notifications"""
         if not await self._access.is_authenticated():
             await self._access.authenticate()
         annee_url = urljoin(self._access.api_url, "/v1/etabs/zone/annee")
         params = {
             "aNotNull": "true",
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", annee_url, params=params)
@@ -33,7 +34,7 @@ class Notification:
             "aDateFin": annee_data['fin'],
             "aDateDebut": annee_data['debut'],
             "range": "0-20",
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", notifications_url, params=params)

@@ -26,7 +26,7 @@ class Punishment:
         end = end_date or (start_date + timedelta(days=days))
         params = {
             "ctx_profil": self._access.profil,
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "aUserId": pupil['uid'],
             "aDateDebut": start_date.astimezone().replace(microsecond=0).isoformat()[:-6]
             + "Z",

@@ -20,6 +20,7 @@ class Access:
         self.password = password
         self.timeout = timeout
         self.profil = None
+        self.etab = None
 
     async def is_authenticated(self) -> bool:
         """Check if session is authenticated to the OzE instance"""
@@ -30,6 +31,7 @@ class Access:
             return False
         info: dict = await res.json()
         self.profil = info['currentProfil']['codeProfil']
+        self.etab = info['currentUai']
         _LOGGER.debug("JSON result: '%s'", info)
         return True
 

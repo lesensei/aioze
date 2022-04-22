@@ -19,7 +19,7 @@ class Homework:
         annee_url = urljoin(self._access.api_url, "/v1/etabs/zone/annee")
         params = {
             "aNotNull": "true",
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", annee_url, params=params)
@@ -36,7 +36,7 @@ class Homework:
             "aDateDebut": start.astimezone(tz.UTC).isoformat()[:-9],
             "aDateFin": annee_data['fin'][:-4],
             "aIdsUsers": pupil['uid'],
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", homework_url, params=params)

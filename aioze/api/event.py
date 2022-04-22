@@ -26,13 +26,13 @@ class Event:
         end = end_date or (start_date + timedelta(days=days))
         params = {
             "ctx_profil": self._access.profil,
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "aDateDebut": start_date.astimezone().replace(microsecond=0).isoformat()[:-6]
             + "Z",
             "aDateFin": end.astimezone().replace(microsecond=0).isoformat()[:-6] + "Z",
             "aPupilles": pupil['uid'],
             "aWithCurrent": "false",
-            "aUais": pupil['etab'],
+            "aUais": self._access.etab,
         }
         cours_url = urljoin(self._access.api_url, "/v1/cours/me")
         _LOGGER.debug("Getting '%s' with params '%s'", cours_url, json.dumps(params))

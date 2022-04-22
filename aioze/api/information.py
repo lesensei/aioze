@@ -10,7 +10,8 @@ class Information:
     def __init__(self, access: Access):
         self._access = access
 
-    async def get_informations(self, pupil):
+    async def get_informations(self, pupil = None):
+        # pylint: disable=unused-argument
         """Get information notices"""
         if not await self._access.is_authenticated():
             await self._access.authenticate()
@@ -21,7 +22,7 @@ class Information:
             "activeState": 0,
             "periodTypeSelected": "CURRENTYEAR",
             "allInformations": "false",
-            "ctx_etab": pupil['etab'],
+            "ctx_etab": self._access.etab,
             "ctx_profil": self._access.profil,
         }
         res = await self._access.api_wrapper("get", info_url, params=params)
