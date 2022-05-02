@@ -9,3 +9,4 @@ from aioze.api.information import Information
 from aioze.api.homework import Homework
 from aioze.api.userinfo import UserInfo
 from aioze.api.email import Email
+from aioze.api.grade import Grade
