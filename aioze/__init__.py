@@ -6,4 +6,4 @@ Provides authentification and access to oZe apis.
 from .ozeapiclient import OzeApiClient
 
 name = "aioze"
-__version__ = "0.0.4.1"
+__version__ = "0.0.5"
